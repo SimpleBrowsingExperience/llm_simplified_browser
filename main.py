@@ -10,8 +10,9 @@ def submit_click(click):
     pass
 
 while True:
-    forms, clicks = get_actions(actual_site)
+    website_name, forms, clicks = get_actions(actual_site)
     i = 1
+    print(f"Website: {website_name[0]}")
     for form in forms:
         print(f"Option {i}: {form}")
         i += 1
