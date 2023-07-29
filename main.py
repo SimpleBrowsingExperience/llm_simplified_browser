@@ -1,6 +1,6 @@
 from actions_from_website import *
 
-actual_site = "https://google.com"
+actual_site = "https://sfbay.craigslist.org/"
 selection = ""
 
 def submit_form(form):
