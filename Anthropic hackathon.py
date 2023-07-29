@@ -7,11 +7,13 @@ import requests
 def get_html(url):
     return requests.get(url).text
 
-FILE_PROMPT = "Can you tell me what are the main possible action on this webpage? I give you the raw HTML file between file XML tags."
+fichier = open("actions_prompt.txt", "r")
+FILE_PROMPT = fichier.read()
+fichier.close()
 
 completion = anthropic.completions.create(
     model="claude-2",
     max_tokens_to_sample=300,
-    prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{get_html('https://www.google.com/search?q=hello')}</file> {AI_PROMPT}",
+    prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{get_html('https://www.google.com')}</file> {AI_PROMPT}",
 )
 print(completion.completion)

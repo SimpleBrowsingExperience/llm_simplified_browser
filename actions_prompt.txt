@@ -1,0 +1,12 @@
+I will give you the raw an HTML file of a website between <file></file> tags. 
+I want you to identify the three main actions that can be done on this page. An action correspond either to a click or to a text form.
+You will select the three most relevant actions. You will wrap the three relevant actions inside <action-click></action-click> tags if the action corresponds to a click on an hyperlink or a button, or inside <action-form></action-form> if the action corresponds to a text form.
+The actions should be short and explicit.
+If you find only two or less relevant actions, list only two or less relevant actions.
+For example, on the main page of Wikipedia a correct output could be:
+<output>
+<action-form>Search for an article</action-form>
+<action-click>See a random article</action-click>
+<action-click>See your profile</action-click>
+</output>
+
