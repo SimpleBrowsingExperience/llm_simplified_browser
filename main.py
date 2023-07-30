@@ -3,11 +3,31 @@ from actions_from_website import *
 actual_site = "https://www.bing.com/search?q=pancakes"
 selection = ""
 
-def submit_form(form):
-    pass
+def generate_page(name, summary, elements, forms, clicks):
 
-def submit_click(click):
-    pass
+  html = f"<html>"
+  html += f"<head><title>{name}</title>"
+  html += """
+  <link rel="stylesheet" type="text/css" href="style.css">"""
+
+  html += f"</head><body><h1>{name}</h1>"
+  html += f"<p>{summary}</p>"
+
+  for url, text in elements:
+    html += f"<div class='element'><a href='{url}'>{text}</a></div>"
+  
+  html += "<div>"
+  for form in forms:
+    html += f"<div class='action'>{form}</div>"
+
+  for url, text in clicks:
+    html += f"<br><div class='action'>>> <a href='{url}'>{text}</a></div>"
+
+  html += "</div></body></html>"
+
+  fichier = open(f"pages/{name}.html", "w")
+  fichier.write(html)
+  fichier.close()
 
 while True:
     html = get_simplified_html(actual_site)
@@ -30,6 +50,7 @@ while True:
         print(f"Option {i}: {click[1]}")
         i += 1
     print("q: quit")
+    generate_page(name, summary, elements, forms, clicks)
     selection = input("Select an option: ")
     if selection == "q":
         break

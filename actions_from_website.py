@@ -7,7 +7,7 @@ import bs4
 from urllib.request import Request, urlopen
 import time
 
-DEBUG = True
+DEBUG = False
 
 def get_html(url):
     req = Request(
