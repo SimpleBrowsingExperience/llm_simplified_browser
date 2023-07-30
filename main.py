@@ -40,10 +40,12 @@ def generate_page(name, summary, elements, forms, clicks):
     html += "</div></body></html>"
 
     # Writing output in an HTML file
-    fichier = open(f"pages/{name}.html", "w")
+    fichier = open(f"pages/{remove_special_characters(name)}.html", "w")
     fichier.write(html)
     fichier.close()
 
+def remove_special_characters(text):
+  return re.sub(r'[\W_]+', '', text)
 
 # Main code
 actual_site = input("Enter keywords for your research: ")
@@ -55,7 +57,7 @@ same_site = False
 while True:
     if not same_site:
         # Interactions with console mode
-        print(f"Fetching URL: {actual_site}")
+        print(f"\n\nFetching URL: {actual_site}")
 
         # Getting simplified HTML code
         html = get_simplified_html(actual_site)
@@ -69,7 +71,7 @@ while True:
     # Showing elements and associated keys
     i = 1
     for element in elements:
-        print(f"Option {i} : {element[1]}")
+        print(f"[{i}] Result  : {element[1]}")
         i += 1
 
     if not same_site:
@@ -78,11 +80,11 @@ while True:
 
     # Showing actions and associated keys
     for form in forms:
-        print(f"Option {i}: {form}")
+        print(f"[{i}] Form : {form}")
         i += 1
     
     for click in clicks:
-        print(f"Option {i}: {click[1]}")
+        print(f"[{i}] Action : {click[1]}")
         i += 1
     
     # Quit option
@@ -119,11 +121,11 @@ while True:
         # Clicking on an element
         actual_site = elements[selection][0]
     
-    elif selection < len(forms):
+    elif selection < len(forms) + len(elements):
         # Forms are not yet implemented
         print("Not implemented yet")
     
-    elif selection < len(clicks):
+    elif selection < len(clicks) + len(forms) + len(elements):
         actual_site = clicks[selection - len(forms) - len(elements)][0]
     
     else:
