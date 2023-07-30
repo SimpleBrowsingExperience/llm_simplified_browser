@@ -110,7 +110,7 @@ def get_actions(html):
     to retrieve available actions in XML format
     """
     # Retrieving the actions prompt
-    fichier = open("actions_prompt.txt", "r")
+    fichier = open("prompts/actions_prompt.txt", "r")
     FILE_PROMPT = fichier.read()
     fichier.close()
 
@@ -140,7 +140,7 @@ def get_elements(html):
     to retrieve available elments in XML format
     """
     # Retrieving the actions prompt
-    fichier = open("elements_prompt.txt", "r")
+    fichier = open("prompts/elements_prompt.txt", "r")
     FILE_PROMPT = fichier.read()
     fichier.close()
     
@@ -166,7 +166,7 @@ def get_elements(html):
 
 def get_custom(html, prompt):
     # Retrieving the custom prompt header
-    fichier = open("custom_prompt.txt", "r")
+    fichier = open("prompts/custom_prompt.txt", "r")
     FILE_PROMPT = fichier.read()
     fichier.close()
     

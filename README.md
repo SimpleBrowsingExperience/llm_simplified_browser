@@ -21,7 +21,7 @@ The visualization of pages is structured around the following items:
 - available elements (if the main purpose of the page is to display a list of
 elements such as the results of a Google search query)
 - available actions, distinguishing between links to click on and forms (field)
-to fill in
+to fill in. The user can also ask questions about the content of the page.
 
 To ensure accessibilility for all our users, no more than 3 elements or 5 actions
 are displayed on a given page!
@@ -29,18 +29,22 @@ are displayed on a given page!
 ## Contents
 
 At this stage, the Git repository contains:
-- `actions_prompt.txt`: Claude prompt to retrieve available actions
-- `elements_prompt.txt`: Claude prompt to retrieve available elements,
+- `prompts/actions_prompt.txt`: Claude prompt to retrieve available actions
+- `prompts/elements_prompt.txt`: Claude prompt to retrieve available elements,
 as well as name and summary for the web page
+- `prompts/custom_prompt.txt`: Claude prompt to answer users' question
 - `actions_from_website.py`: Python script for auxiliary functions to query
 the HTML code of a website, preprocess it locally, sending simplified
 code to Claude for analysis and parsing the output
 - `main.py`: main Python script for the project, allowing a simplified browsing
 on a console-like mode and a light graphical implementation
+- A template for the secrets_api.py file, required to use the assistant.
+- The folder `pages` containing the outputs of the command line program.
 
 ## Demonstration
 
 If time allows it, demonstration with images!
+Youtube demo of the command line assistant : https://www.youtube.com/watch?v=JCZOAZZh1no
 
 ## External documentation
 - Figma: https://www.figma.com/file/NExOzeXMCJ4v1M5NQJULx4/BrowsingCompanion?type=design&node-id=1-3&mode=design
