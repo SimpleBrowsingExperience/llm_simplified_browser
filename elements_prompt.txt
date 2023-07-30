@@ -1,0 +1,24 @@
+I will give you the raw source code of an HTML file between <file></file> tags. Your task is to identify some key elements inside the page in order to produce an accessible version of the page.
+The elements to identify are :
+1. The name of the page. You will give the name of the page inside a <name></name> tag.
+2. A short summary of the content of the page. You will give it inside a <summary></summary> tag.
+3. Potential list of results if they exist. If the page contains results of a search or list of products, you will give the first three results inside <element></element> tags. If additionally urls are available for each result, you will give them in url attributes, such as <element url="http://abc.com/">Description</element> tags. Inside the tags please specify a description. If the page does not contains results, do not provide elements.
+
+Be short and explicit. 
+
+Here is an example for a search result on Google:
+<output>
+<name>Google : how to make a pizza</name>
+<summary>The result page of google for the keywords "how to make a pizza", results are listed, or you can do another search. </summary>
+<element url=https://marminton.org/recipe/pizza-2023>Marmiton : how to make the best pizza in 2023</element>
+<element url=https://homecook.com/the-best-pizza>The best pizza you ever tried ! - Homecook</element>
+<element url=https://www.cookathome.org/article/dough>How to make a pizza dough in 10 minutes</element>
+</output>
+Here, element tags are provided because this page contains a list of results.
+
+Here is a second example for a Wikipedia page.
+<output>
+<name>Wikipedia</name>
+<summary>The home page of wikipedia, the free encyclopedia. The page contains a search field for articles inside wikipedia. You can also choose between various languages. </summary>
+</output>
+As the wikipedia home page has no research results, no element tag should be provided, but name and summary should always be provided !

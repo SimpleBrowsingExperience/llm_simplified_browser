@@ -21,12 +21,6 @@ def get_html(url):
     mystr = mybytes.decode("utf8")
     return mystr
 
-def parse_actions(text):
-  form_actions = re.findall(r'<action-form>(.*?)</action-form>', text)
-  click_actions = re.findall(r'<action-click>(.*?)</action-click>', text)
-  name = re.findall(r'<name>(.*?)</name>', text)
-  return name, form_actions, click_actions
-
 def fast_simplify_html(source_html):
    # Parse the HTML content using BeautifulSoup
     simplified_soup = bs4.BeautifulSoup(source_html, 'html.parser')
@@ -48,28 +42,59 @@ def fast_simplify_html(source_html):
     for tag in simplified_soup.find_all(True):
         if len(tag.contents) == 1 and tag.name != 'a' and tag.name != 'html':
             tag.replace_with(tag.contents[0])
+            
+    # Remove all comments from the HTML
+    comments = simplified_soup.find_all(text=lambda text: isinstance(text, bs4.Comment))
+    for comment in comments:
+        comment.extract()
     
     # Return the simplified HTML
+    #print(str(simplified_soup))
     return str(simplified_soup)
+
 
 def get_simplified_html(url):
     return fast_simplify_html(get_html(url))
 
+###
 
-def get_actions(url):
+def parse_actions(text):
+  form_actions = re.findall(r'<action-form>(.*?)</action-form>', text)
+  click_actions = re.findall(r'<action-click url="(.*?)">(.*?)</action-click>', text)
+  return form_actions, click_actions
+
+def parse_elements(text):
+  name = re.findall(r'<name>(.*?)</name>', text)[0]
+  elements = re.findall(r'<element url="(.*?)">(.*?)</element>', text)
+  summary = re.findall(r'<summary>(.*?)</summary>', text)[0]
+  return name, summary, elements
+
+def get_actions(html):
     fichier = open("actions_prompt.txt", "r")
     FILE_PROMPT = fichier.read()
     fichier.close()
-    html = get_simplified_html(url)
     if DEBUG:
-        print("API request")
+        print("API request of actions")
     completion = anthropic.completions.create(
         model="claude-2",
-        max_tokens_to_sample=300,
+        max_tokens_to_sample=1000,
         prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{html}</file> {AI_PROMPT}",
     )
-    print(completion.completion)
+    if DEBUG:
+            print(completion.completion)
     return parse_actions(completion.completion)
 
-#get_actions("https://sfbay.craigslist.org/")
-get_actions("https://www.bing.com/search?q=pancakes")
+def get_elements(html):
+    fichier = open("elements_prompt.txt", "r")
+    FILE_PROMPT = fichier.read()
+    fichier.close()
+    if DEBUG:
+        print("API request for elements")
+    completion = anthropic.completions.create(
+        model="claude-2",
+        max_tokens_to_sample=1000,
+        prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{html}</file> {AI_PROMPT}",
+    )
+    if DEBUG:
+        print(completion.completion)
+    return parse_elements(completion.completion)
