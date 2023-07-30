@@ -44,6 +44,7 @@ on a console-like mode and a light graphical implementation
 ## Demonstration
 
 Imagine that you would like to search for pancakes on Bing.
+Youtube video : https://www.youtube.com/watch?v=JCZOAZZh1no
 
 1. You first request the traditional URL: `bing.com/search?q=pancakes`
 2. You will then be seeing the simple representation of the page.
