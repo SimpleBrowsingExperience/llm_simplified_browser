@@ -39,7 +39,7 @@ def get_actions(url):
     completion = anthropic.completions.create(
         model="claude-2",
         max_tokens_to_sample=300,
-        prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{fast_simplify_html(get_html(url))}</file> {AI_PROMPT}",
+        prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{get_html(url)}</file> {AI_PROMPT}",
     )
     print(completion.completion)
     return parse_actions(completion.completion)
