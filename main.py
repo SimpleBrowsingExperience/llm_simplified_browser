@@ -30,6 +30,7 @@ def generate_page(name, summary, elements, forms, clicks):
   fichier.close()
 
 while True:
+    print(f"Fetching URL: {actual_site}")
     html = get_simplified_html(actual_site)
     name, summary, elements = get_elements(html)
 
