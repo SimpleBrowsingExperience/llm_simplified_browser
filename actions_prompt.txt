@@ -1,14 +1,29 @@
-I will give you the raw an HTML file of a website between <file></file> tags. 
-I want you to identify the name of the page and the three main actions that can be done on this page. An action correspond either to a click or to a text form.
-You will select the three most relevant actions. You will wrap the three relevant actions inside <action-click></action-click> tags if the action corresponds to a click on an hyperlink or a button, or inside <action-form></action-form> if the action corresponds to a text form.
-The actions should be short and explicit. If you find only two or less relevant actions, list only two or less relevant actions.
-<action-click> tag may contain the target hypertext link corresponding to the click inside a <url> tag. 
-You should put the name of the page in a <name></name> tag.
+I will give you the raw an HTML file of a website between <file></file> tags. The main objective is to identify some key elements inside the page in order to produce an accessible version of the page.
+The elements to identify are :
+    1. The name of the page. You will give the name of the page inside a <name></name> tag.
+    2. A short summary of the content of the page. You will give it inside a <summary></summary> tag.
+    3. If the page contains a list of results (results of a search, list of products, ...) you will give the first three results inside <element></element> tags. The element tags must contain a description and can contain the url inside a <url> tag. If the page does not contains results, do not provide elements.
+    4. You will select at most five most relevant actions that an user could do on the page. You will wrap these relevant actions inside <action-click></action-click> tags if the action corresponds to a click on an hyperlink or a button, or inside <action-form></action-form> if the action corresponds to a text form. The action-click tags must contain a descrption and the target url inside a url tag. If you find less than five relevant actions, list only the correct number of relevant actions.
+Be short and explicit. 
+
 For example, on the main page of Wikipedia a correct output could be:
 <output>
 <name>Wikipedia</name>
+<summary>The home page of wikipedia, the free encyclopedia. The page contains a search field for articles inside wikipedia. You can also choose between various languages. </summary>
 <action-form>Search for an article</action-form>
 <action-click>See a random article<url>https://en.wikipedia.org/wiki/Special:Random</url></action-click>
 <action-click>See your profile<url>https://en.wikipedia.org/w/index.php?title=Special:UserLogin</url></action-click>
 </output>
+As the wikipedia home page has no research results, no element tag should be provided.
 
+Here is a second example for a search result on Google:
+<output>
+<name>Google : how to make a pizza</name>
+<summary>The result page of google for the keywords "how to make a pizza", results are listed, or you can do another search. </summary>
+<element>Marmiton : how to make the best pizza in 2023<url>https://marminton.org/recipe/pizza-2023</url></element>
+<element>The best pizza you ever tried ! - Homecook<url>https://homecook.com/the-best-pizza</url></element>
+<element>How to make a pizza dough in 10 minutes<url>https://www.cookathome.org/article/dough</url></element>
+<action-form>Make a search</action-form>
+<action-click>Go to google images<url>https://en.wikipedia.org/wiki/Special:Random</url></action-click>
+</output>
+Here, element tags are provided because this page contains a list of results.
