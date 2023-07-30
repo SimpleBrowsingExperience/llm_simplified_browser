@@ -120,7 +120,8 @@ def get_actions(html):
 
     # API query
     completion = anthropic.completions.create(
-        model="claude-2",
+        #model="claude-2",
+        model="claude-instant-1",
         max_tokens_to_sample=1000,
         prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{html}</file> {AI_PROMPT}",
     )
@@ -149,7 +150,8 @@ def get_elements(html):
     
     # API query
     completion = anthropic.completions.create(
-        model="claude-2",
+        #model="claude-2",
+        model="claude-instant-1",
         max_tokens_to_sample=1000,
         prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <file>{html}</file> {AI_PROMPT}",
     )
@@ -160,3 +162,27 @@ def get_elements(html):
 
     # Parsing elements
     return parse_elements(completion.completion)
+
+
+def get_custom(html, prompt):
+    # Retrieving the custom prompt header
+    fichier = open("custom_prompt.txt", "r")
+    FILE_PROMPT = fichier.read()
+    fichier.close()
+    
+    # Debug mode
+    if DEBUG:
+        print("API request for custom")
+    
+    # API query
+    completion = anthropic.completions.create(
+        #model="claude-2",
+        model="claude-instant-1",
+        max_tokens_to_sample=1000,
+        prompt=f"{HUMAN_PROMPT} {FILE_PROMPT} <prompt>{prompt}</prompt> <file>{html}</file> {AI_PROMPT}",
+    )
+    # Debug mode
+    if DEBUG:
+        print(completion.completion)
+
+    return completion.completion

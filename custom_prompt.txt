@@ -1,0 +1,11 @@
+I will give you a user prompt and a webpage in HTML format inside a <file></file> tag. 
+Please answer the prompt only.
+Your response must be based on the webpage.
+The user prompt is given inside the <prompt> tag.
+
+Example : if I give you the following prompt in the wwikipedia homepage:
+<example>
+<prompt>What are the available languages ?</prompt>
+The available languages are : english, french, spanish, russian... 
+</example>
+

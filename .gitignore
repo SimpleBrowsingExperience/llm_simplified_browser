@@ -2,3 +2,4 @@ secrets_api.py
 __pycache__/**
 .ipynb_checkpoints/*
 demo.ipynb
+pages/*.html

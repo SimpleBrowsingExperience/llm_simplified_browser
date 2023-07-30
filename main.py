@@ -6,9 +6,8 @@ on SimpleBrowser
 
 from actions_from_website import *
 
-# Defining target websites
-actual_site = "https://www.bing.com/search?q=pancakes"
-selection = ""
+actual_site = "" # Actual site to be browsed
+selection = "" 
 
 
 def generate_page(name, summary, elements, forms, clicks):
@@ -47,15 +46,23 @@ def generate_page(name, summary, elements, forms, clicks):
 
 
 # Main code
+actual_site = input("Enter keywords for your research: ")
+actual_site = actual_site.replace(" ", "+")
+actual_site = "https://www.bing.com/search?q=" + actual_site
+
+same_site = False
+
 while True:
-    # Interactions with console mode
-    print(f"Fetching URL: {actual_site}")
+    if not same_site:
+        # Interactions with console mode
+        print(f"Fetching URL: {actual_site}")
 
-    # Getting simplified HTML code
-    html = get_simplified_html(actual_site)
+        # Getting simplified HTML code
+        html = get_simplified_html(actual_site)
 
-    # Retrieving name, summary, elements
-    name, summary, elements = get_elements(html)
+        # Retrieving name, summary, elements
+        name, summary, elements = get_elements(html)
+
     print(f"Website: {name}")
     print(f"Summary: {summary}")
 
@@ -65,8 +72,9 @@ while True:
         print(f"Option {i} : {element[1]}")
         i += 1
 
-    # Retrieving actions
-    forms, clicks = get_actions(html)
+    if not same_site:
+        # Retrieving actions
+        forms, clicks = get_actions(html)
 
     # Showing actions and associated keys
     for form in forms:
@@ -78,7 +86,7 @@ while True:
         i += 1
     
     # Quit option
-    print("q: quit")
+    print("a: ask something about the page \nq: quit")
 
     # Generates HTML code of the simplified page
     generate_page(name, summary, elements, forms, clicks)
@@ -89,13 +97,23 @@ while True:
     if selection == "q":
         # Quitting
         break
+    elif selection.lower() == "a":
+        # Custom prompt
+        prompt = input("Please enter ask what you want to know: ")
+        response = get_custom(html, prompt)
+        print(response)
+        same_site = True
+        continue
     
     elif selection.isdigit():
         selection = int(selection) - 1 
     
     else:
         print("Invalid selection")
+        same_site = True
         continue
+
+    old_site = actual_site
     
     if selection < len(elements):
         # Clicking on an element
@@ -106,7 +124,14 @@ while True:
         print("Not implemented yet")
     
     elif selection < len(clicks):
-        actual_site = clicks[selection][0]
+        actual_site = clicks[selection - len(forms) - len(elements)][0]
     
     else:
+        same_site = True
         print("Invalid selection")
+        continue
+
+    same_site = False
+    # Some url are given relatively to the current one
+    if not ("http" in actual_site):
+        actual_site = old_site + actual_site
